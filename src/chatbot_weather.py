@@ -56,10 +56,19 @@ while True:
             'input': user_input,
             'chat_history': chat_history
         })
-        if isinstance(response.content,list):
-            bot_response=response.content[0]['text']
+        # Extract the final response
+        final_message = response['messages'][-1]
+        raw_content = final_message.content
+
+# Màng lọc triệt để tiêu diệt signature
+        if isinstance(raw_content, tuple):
+         print(raw_content[0])
+        elif isinstance(raw_content, str) and "'extras': {'signature':" in raw_content:
+            # Dùng lệnh split() để "chặt" bỏ toàn bộ phần từ chữ 'extras' trở về sau
+            clean_text = raw_content.split("', 'extras': {'signature':")[0]
+    # Gọt nốt mấy cái dấu ngoặc, dấu nháy rác bị dư
+            print(clean_text.strip("(\"'"))
         else:
-            bot_response=response.content
-        print(f"Bot: {bot_response}")
+         print(raw_content)
         chat_history.append(HumanMessage(content=user_input))
         chat_history.append(AIMessage(content=bot_response))
