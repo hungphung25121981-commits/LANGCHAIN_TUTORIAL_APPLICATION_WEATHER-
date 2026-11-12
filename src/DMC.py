@@ -100,3 +100,4 @@ else:
     # Xử lý trường hợp bị rỗng để code không bị sập (crash)
     print("⚠️ Lỗi: Không nhận được tin nhắn phản hồi nào từ mô hình AI.")
     print("Dữ liệu thô trả về:", response)
+
